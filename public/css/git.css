@@ -1,0 +1,20 @@
+.label {
+    min-height: 20px!important;
+    min-width: 50px !important;
+    display: inline-block !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.custom-image {
+	height: 48px;
+	width: 48px;
+}
+
+.mb-20 {
+	margin-bottom: 20px;
+}
+
+.red {
+	color: red;
+}

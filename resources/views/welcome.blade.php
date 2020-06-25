@@ -1,99 +1,82 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
     <head>
-        <meta charset="utf-8">
+        <title>Git Users Dashboard</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/git.css">
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+        <div class="container">
+            <h2>Git Users Dashboard</h2><br><br>
+            <div class="row hide" id="searchbar">
+                <div class="col-sm-9">
+                    
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class="col-sm-3">
+                    <div class="input-group float-right mb-20">
+                        <input type="text" class="form-control" id="searchUsers" placeholder="Search" name="search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="searchUsersIcon">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>        
                 </div>
-
-                <div class="links">
-                    <a href="https://qoruz.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+            </div>
+            <div class="table-responsive">   
+                <div id="gitReport">
+                    Loading, Please Wait!.
                 </div>
             </div>
         </div>
     </body>
 </html>
+<script type="text/javascript">
+    $.ajax({
+        url: '/git/show-users',
+        type: "GET",
+        success: function (response) {
+            $("#gitReport").html(response);
+            $("#searchbar").removeClass('hide');
+        },
+        error: function(data) {
+            $("#gitReport").html('Please try again');
+        }
+    });
+    
+    $('#searchUsersIcon').on( 'click', function (e) {
+        $("#gitReport").html('Loading, Please Wait!');
+        var searchValue = $('#searchUsers').val();
+        if (searchValue) {
+            $.ajax({
+                url: '/git/search-users',
+                type: "GET",
+                data : {
+                    search : searchValue
+                },
+                success: function (response) {
+                    $("#gitReport").html(response);
+                }
+            });    
+        } 
+    });
+
+    $('#searchUsers').on( 'keyup', function (e) {
+        var searchValue = $(this).val();
+        if (!searchValue) {
+            $.ajax({
+                url: '/git/show-users',
+                type: "GET",
+                success: function (response) {
+                    $("#gitReport").html(response);
+                    $("#searchbar").removeClass('hide');
+                },
+                error: function(data) {
+                    $("#gitReport").html('Please try again');
+                }
+            });
+        }
+    });
+</script>

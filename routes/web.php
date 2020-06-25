@@ -11,6 +11,23 @@
 |
 */
 
-Route::get('/hi', function () {
+Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/git', function () {
+    return view('welcome');
+});
+
+
+Route::get('/git/show-users','GitController@showUsers');
+
+Route::get('/git/search-users','GitController@searchUsers');
+
+Route::get('/move-the-box', function() {
+	return view('game');
+});
+
+Route::get('/move-the-box-obstacle', function() {
+	return view('obstacle');
 });
