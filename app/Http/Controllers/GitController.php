@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
+use GuzzleHttp\Client; // PHP HTTP client that sends HTTP requests
 
 class GitController extends Controller
 {
