@@ -15,10 +15,27 @@
 	margin-bottom: 20px;
 }
 
+.margin-20 {
+	margin: 20px;
+}
+
 .red {
 	color: red;
 }
 
 .pt-20 {
 	padding : 20px!important;
+}
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #ffffff;
 }

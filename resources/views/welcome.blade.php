@@ -8,7 +8,6 @@
         <link rel="stylesheet" type="text/css" href="/css/git.css">
         <link rel="stylesheet" href="/css/jquery-spinner.min.css" />
         <script src="/css/jquery-spinner.min.js"></script>
-
     </head>
     <body>
         <div id="spinner">
@@ -44,7 +43,15 @@
     });
     spinner.show();
 
-    
+    function reload () {
+        window.location.reload();
+    }
+
+    errorDiv = '<div class="row">'+
+                '<img src="/error.png" class="margin-20">'
+                +'</div>'+
+                '<button class="btn btn-link" onclick="reload()"> Click here to reload</button>';
+
     $.ajax({
         url: '/git/show-users',
         type: "GET",
@@ -54,7 +61,8 @@
             spinner.hide();
         },
         error: function(data) {
-            $("#gitReport").html('Please try again');
+            $("#gitReport").html(errorDiv);
+            spinner.hide();
         }
     });
     
@@ -70,11 +78,16 @@
                     search : searchValue
                 },
                 success: function (response) {
-                    $("#gitReport").html(response);
                     spinner.hide();
+                    if (response) {
+                        $("#gitReport").html(response);
+                    } else {
+                        var errorresponse = '<h3 class="red">*Invalid Username</h3>'
+                        $("#gitReport").html(errorresponse+errorDiv);
+                    }
                 },
                 error: function(data) {
-                    $("#gitReport").html('Please try again');
+                    $("#gitReport").html(errorDiv);
                     spinner.hide();
                 }
             });    
@@ -94,7 +107,7 @@
                     spinner.hide();
                 },
                 error: function(data) {
-                    $("#gitReport").html('Please try again');
+                    $("#gitReport").html(errorDiv);
                     spinner.hide();
                 }
             });

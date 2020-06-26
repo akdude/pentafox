@@ -21,6 +21,7 @@ class GitController extends Controller
         $response = $client->request('GET');
         $result = $response->getBody();
         $userdata = json_decode($result,true);
+        
         foreach ($userdata as $gituser) {
         	$gituser['total_repos'] = self::getRepoCount($gituser['repos_url']);
             $gituser['name'] = self::getNameofUser($gituser['url']);
@@ -74,14 +75,12 @@ class GitController extends Controller
         $result = $response->getBody();
         $userdata = json_decode($result,true);
         
-        $validUser = $userdata['total_count'];
+        $validUser = $userdata['total_count']; //returns 1 incase of a valid username
         if ($validUser) {
             $users[0]['avatar_url'] = $userdata['items'][0]['avatar_url'];
             $users[0]['name'] = self::getNameofUser($userdata['items'][0]['url']);
             $users[0]['total_repos'] = self::getRepoCount($userdata['items'][0]['repos_url']);
             return view('gitdata',['users'=> $users]);
-        } else {
-            return '<b class="red">Invalid Username, Please check your input</b>';
         }
     }
 }
