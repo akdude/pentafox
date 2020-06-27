@@ -8,10 +8,10 @@
     <body>
         <h1 class="text-center">Move over the obstacle!!</h1>
         <div class="parent mt-40">
-            <div class="child corner-0" id="child">
+            <div class="corner-3 obstacle-corner" data-position="3" id="obstacle">
                 
             </div>
-            <div class="obstacle-corner corner-2" id="obstacle">
+            <div class="child corner-1" data-position="1" id="child">
                 
             </div>
         </div>
@@ -20,8 +20,8 @@
 
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6 controls">
-                <button class="btn btn-success margin-30" onclick="goForward()">FORWARD</button>
-                <button class="btn btn-success margin-30" onclick="goBack()">REVERSE</button>
+                <button class="btn btn-success margin-30" onclick="move(1)">FORWARD</button>
+                <button class="btn btn-success margin-30" onclick="move(-1)">REVERSE</button>
             </div>
         </div>
     </body>
