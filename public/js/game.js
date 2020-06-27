@@ -5,25 +5,25 @@ function move (nature) {
     
     if (obstacle) {
         obstaclePosition =  obstacle.getAttribute('data-position');
-        obstacleCorner = obstaclePosition;
+        obstacleCorner = parseInt(obstaclePosition);
     }
     
-    currentCorner = childPosition;
+    currentCorner = parseInt(childPosition);
     
     child.classList.remove('corner-'+currentCorner);
     
     if (nature > 0) {
-        currentCorner = (parseInt(currentCorner)+nature)%4;
+        currentCorner = (currentCorner+nature)%4;
         if (obstacle) {
-            if (currentCorner == parseInt(obstacleCorner)) {
+            if (currentCorner == obstacleCorner) {
                 currentCorner = (currentCorner+1)%4;
             }
         }
     } else {
-        currentCorner = (parseInt(currentCorner)+nature)%4;
+        currentCorner = (currentCorner+nature)%4;
         currentCorner = currentCorner < 0 ? currentCorner+4 : currentCorner;
         if (obstacle) {
-            if (currentCorner == parseInt(obstacleCorner)) {
+            if (currentCorner == obstacleCorner) {
                 currentCorner = currentCorner-1;
             }
         }
