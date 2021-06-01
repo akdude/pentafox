@@ -31,3 +31,9 @@ Route::get('/move-the-box', function() {
 Route::get('/move-the-box-obstacle', function() {
 	return view('obstacle');
 });
+
+Route::get('/diff', function() {
+	return view('diff');
+});
+
+Route::get('/diff/calc', 'GitController@showCalc');
